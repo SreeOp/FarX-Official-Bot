@@ -1,11 +1,10 @@
 const { ActivityType } = require('discord.js');
 
-// Array of status messages with their types
 const statusMessages = [
-  { name: "Florencia Customs", type: ActivityType.Playing },
+  { name: "ZyX Projects", type: ActivityType.Playing },
   { name: "Custom Works", type: ActivityType.Watching },
-  { name: "Tickets", type: ActivityType.Listening },
-  { name: "#UnleashTheBeast", type: ActivityType.Playing }
+  { name: "Musics !", type: ActivityType.Listening },
+  { name: "members...", type: ActivityType.Watching } // Placeholder for member count
 ];
 
 let currentIndex = 0;
@@ -13,6 +12,16 @@ let currentIndex = 0;
 module.exports = (client) => {
   function updateStatus() {
     const currentStatus = statusMessages[currentIndex];
+    
+    if (currentIndex === statusMessages.length - 1) {
+      // Fetch the member count from the first guild
+      const guild = client.guilds.cache.first();
+      if (guild) {
+        const memberCount = guild.memberCount;
+        currentStatus.name = `${memberCount} members`;
+      }
+    }
+
     currentIndex = (currentIndex + 1) % statusMessages.length;
 
     client.user.setPresence({
