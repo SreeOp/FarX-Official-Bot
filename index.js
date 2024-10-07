@@ -7,8 +7,18 @@ require('dotenv').config(); // Load environment variables
 // Import the setStatus function
 const setStatus = require('./functions/setStatus');
 
+// Import message logging functionality
+const logMessages = require('./functions/logMessages');
+
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ 
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,     // Required to log messages
+    GatewayIntentBits.MessageContent,    // Required to access message content
+    GatewayIntentBits.GuildMessageReactions // In case you want to track reactions in the future
+  ] 
+});
 
 // Initialize commands collection
 client.commands = new Collection();
@@ -33,6 +43,9 @@ client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   // Set the bot's status
   setStatus(client);
+  
+  // Call logMessages function to start logging message events
+  logMessages(client);
 });
 
 // Interaction create event
