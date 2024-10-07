@@ -1,21 +1,16 @@
+
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 require('dotenv').config(); // Load environment variables
 
-// Import functions
+// Import the setStatus function
 const setStatus = require('./functions/setStatus');
-const logMessages = require('./functions/logMessages'); // Log messages function
+const logMessages = require('./functions/logMessages');
 
 // Create a new client instance
-const client = new Client({ 
-  intents: [
-    GatewayIntentBits.Guilds, 
-    GatewayIntentBits.GuildMessages, // Required to handle message events
-    GatewayIntentBits.MessageContent // Required to access message content
-  ] 
-});
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Initialize commands collection
 client.commands = new Collection();
@@ -38,12 +33,9 @@ deployCommands().catch(console.error);
 // Ready event
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
-  
   // Set the bot's status
   setStatus(client);
-
-  // Set up message logging
-  logMessages(client); // Initialize logging for deleted/edited messages
+  logMessages(client);
 });
 
 // Interaction create event
