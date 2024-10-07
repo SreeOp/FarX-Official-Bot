@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 
 // Channel ID where logs will be sent
-const LOG_CHANNEL_ID = '1292843729056698428';  // Replace with the actual log channel ID
+const LOG_CHANNEL_ID = '1292843729056698428';  // Replace with actual log channel ID
 
 module.exports = (client) => {
   // Listen for message delete event
