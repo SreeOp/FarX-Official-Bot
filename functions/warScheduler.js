@@ -28,6 +28,6 @@ module.exports = (client) => {
     console.log('Executing scheduled task: War message');
     sendWarMessage();
   }, {
-    timezone: "Your/Timezone" // Optional: set your preferred timezone, e.g., "America/New_York"
+    timezone: "Asia/Kolkata" // Correct timezone for India (IST)
   });
 };
