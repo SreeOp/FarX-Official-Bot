@@ -1,13 +1,12 @@
-
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 require('dotenv').config(); // Load environment variables
 
-// Import the setStatus function
+// Import the setStatus function and warScheduler
 const setStatus = require('./functions/setStatus');
-const logMessages = require('./functions/logMessages');
+const warScheduler = require('./functions/warScheduler');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -35,7 +34,9 @@ client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   // Set the bot's status
   setStatus(client);
-  logMessages(client);
+  
+  // Initialize war scheduler
+  warScheduler(client);
 });
 
 // Interaction create event
